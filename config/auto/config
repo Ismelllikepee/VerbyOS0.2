@@ -3,7 +3,9 @@ set -e
 lb config \
   --distribution trixie \
   --architectures amd64 \
-  --archive-areas "main contrib non-free non-free-firmware" \
+  --archive-areas "main contrib non-free
+  --security true \
+  --security-mirror "http://security.debian.org/debian-security" \ non-free-firmware" \
   --binary-images iso-hybrid \
   --debian-installer live \
   --bootappend-live "boot=live components quiet splash" \
