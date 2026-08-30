@@ -8,26 +8,42 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: debian:trixie
+
     steps:
-      - name: Install build dependencies
-        run: |
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get install -y \
-            live-build xorriso squashfs-tools debootstrap dosfstools mtools \
-            grub-pc-bin grub-efi-amd64-bin grub-efi-amd64-signed shim-signed \
-            ca-certificates git rsync
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+            live-build \
+            xorriso \
+            squashfs-tools \
+            debootstrap \
+            dosfstools \
+            mtools \
+            grub-pc-bin \
+            grub-efi-amd64-bin \
+            grub-efi-amd64-signed \
+            shim-signed \
+            ca-certificates \
+            rsync
+
+      - name: Make build script executable
+        run: chmod +x build.sh config/auto/config
+
       - name: Build ISO
-        run: ./build.sh
-      - name: Verify artifacts
+        run: sudo ./build.sh
+
+      - name: Verify ISO
         run: |
           test -s VerbyOS.iso
           test -s VerbyOS.iso.sha256
           sha256sum -c VerbyOS.iso.sha256
-          xorriso -indev VerbyOS.iso -toc >/tmp/verbyos-toc.txt
-          grep -q 'VERBYOS' /tmp/verbyos-toc.txt || true
+          file VerbyOS.iso
+          xorriso -indev VerbyOS.iso -toc
+
       - name: Upload VerbyOS ISO
         uses: actions/upload-artifact@v4
         with:
