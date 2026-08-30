@@ -1,0 +1,11 @@
+NAME="VerbyOS"
+PRETTY_NAME="VerbyOS 1.0.0"
+ID=verbyos
+ID_LIKE=debian
+VERSION_ID="1.0"
+VERSION="1.0"
+VERSION_CODENAME="trixie"
+DEBIAN_CODENAME="trixie"
+HOME_URL="https://github.com/verbyos/verbyos"
+SUPPORT_URL="https://github.com/verbyos/verbyos/issues"
+BUG_REPORT_URL="https://github.com/verbyos/verbyos/issues"

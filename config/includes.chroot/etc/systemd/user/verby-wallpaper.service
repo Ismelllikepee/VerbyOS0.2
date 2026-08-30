@@ -1,0 +1,6 @@
+[Unit]
+Description=VerbyOS daily wallpaper rotation
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/verby-wallpaper-daily

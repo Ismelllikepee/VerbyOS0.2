@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+if [ ! -e "$HOME/.config/verbyos/.firstboot-done" ]; then
+ mkdir -p "$HOME/.config/verbyos"
+ touch "$HOME/.config/verbyos/.firstboot-done"
+ /usr/local/bin/verby-wallpaper random >/dev/null 2>&1 || true
+fi

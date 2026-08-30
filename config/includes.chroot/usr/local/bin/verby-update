@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+echo '=== Updating VerbyOS ==='
+sudo apt-get update
+sudo apt-get upgrade -y

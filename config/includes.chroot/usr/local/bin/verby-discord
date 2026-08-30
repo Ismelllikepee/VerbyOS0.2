@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+if command -v discord >/dev/null 2>&1; then exec discord "$@"; fi
+if command -v flatpak >/dev/null 2>&1; then echo 'Discord is not bundled. Install it from its official distribution, then launch again.'; fi
+xdg-open 'https://discord.com/download' >/dev/null 2>&1 || true

@@ -1,0 +1,30 @@
+#!/bin/sh
+set -eu
+systemctl enable NetworkManager.service || true
+systemctl enable lightdm.service || true
+systemctl enable bluetooth.service || true
+mkdir -p /etc/skel/Pictures/'VerbyOS Saved Wallpapers'
+mkdir -p /etc/skel/.config/verbyos
+cp /usr/share/verbyos/dock.json /etc/skel/.config/verbyos/dock.json
+# PipeWire is user-managed; ensure the standard Debian user units are present.
+mkdir -p /etc/skel/.config/systemd/user
+cat > /etc/skel/.config/systemd/user/verby-wallpaper.service <<'EOF'
+[Unit]
+Description=VerbyOS daily wallpaper rotation
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/verby-wallpaper-daily
+EOF
+cat > /etc/skel/.config/systemd/user/verby-wallpaper.timer <<'EOF'
+[Unit]
+Description=Rotate VerbyOS wallpaper every 24 hours
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=24h
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF

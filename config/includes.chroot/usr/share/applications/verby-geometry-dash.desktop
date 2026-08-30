@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Geometry Dash
+Comment=Launch your legitimate Geometry Dash installation
+Exec=verby-geometry-dash
+Icon=applications-games
+Terminal=false
+Type=Application
+Categories=Game;

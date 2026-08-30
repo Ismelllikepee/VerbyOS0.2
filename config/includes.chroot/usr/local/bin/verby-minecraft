@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+if command -v prismlauncher >/dev/null 2>&1; then exec prismlauncher "$@"; fi
+if command -v minecraft-launcher >/dev/null 2>&1; then exec minecraft-launcher "$@"; fi
+xdg-open 'https://www.minecraft.net/download' >/dev/null 2>&1 || true
+echo 'Install Minecraft using an official launcher or Prism Launcher, then use this shortcut again.'

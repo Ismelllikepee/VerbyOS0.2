@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+lb config \
+  --distribution trixie \
+  --architectures amd64 \
+  --archive-areas "main contrib non-free non-free-firmware" \
+  --binary-images iso-hybrid \
+  --debian-installer live \
+  --bootappend-live "boot=live components quiet splash" \
+  --apt-indices false \
+  --memtest none \
+  --iso-application "VerbyOS" \
+  --iso-publisher "VerbyOS Project" \
+  --iso-volume "VERBYOS" \
+  --bootloader grub-efi \
+  --linux-flavours amd64 \
+  --firmware-binary true \
+  --firmware-chroot true

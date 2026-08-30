@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+import os, subprocess, shutil
+from pathlib import Path
+import gi
+gi.require_version('Gtk','3.0')
+from gi.repository import Gtk
+SAVED=Path.home()/'Pictures/VerbyOS Saved Wallpapers'
+class App(Gtk.Window):
+ def __init__(self):
+  super().__init__(title='VerbyOS Settings',default_width=760,default_height=560); self.set_border_width(18)
+  root=Gtk.Box(orientation=Gtk.Orientation.VERTICAL,spacing=12); self.add(root)
+  title=Gtk.Label(); title.set_markup('<span size="xx-large" weight="bold">VerbyOS</span>'); root.pack_start(title,False,False,0)
+  note=Gtk.Label(label='Settings, because apparently computers require a control room.'); root.pack_start(note,False,False,0)
+  nb=Gtk.Notebook(); root.pack_start(nb,True,True,0)
+  nb.append_page(self.appearance(),Gtk.Label(label='Appearance')); nb.append_page(self.dock(),Gtk.Label(label='Dock')); nb.append_page(self.system(),Gtk.Label(label='System')); nb.append_page(self.gaming(),Gtk.Label(label='Gaming')); nb.append_page(self.about(),Gtk.Label(label='About'))
+ def page(self): return Gtk.Box(orientation=Gtk.Orientation.VERTICAL,spacing=12)
+ def button(self,text,fn): b=Gtk.Button(label=text); b.connect('clicked',fn); return b
+ def appearance(self):
+  p=self.page(); p.pack_start(Gtk.Label(label='Wallpaper'),False,False,0); p.pack_start(self.button('Randomize wallpaper',lambda *_: subprocess.Popen(['verby-wallpaper','random'])),False,False,0); p.pack_start(self.button('Change wallpaper now',lambda *_: subprocess.Popen(['verby-wallpaper','next'])),False,False,0); p.pack_start(self.button('Save current wallpaper',lambda *_: subprocess.Popen(['verby-wallpaper','save'])),False,False,0); p.pack_start(self.button('Open saved wallpapers',lambda *_: subprocess.Popen(['xdg-open',str(SAVED)])),False,False,0); p.pack_start(self.button('Toggle daily wallpaper',lambda *_: subprocess.Popen(['sh','-c','systemctl --user is-enabled verby-wallpaper.timer >/dev/null 2>&1 && verby-wallpaper disable || verby-wallpaper enable'])),False,False,0); return p
+ def dock(self):
+  p=self.page(); p.pack_start(Gtk.Label(label='Dock settings are stored in ~/.config/verbyos/dock.json.'),False,False,0); p.pack_start(self.button('Edit dock configuration',lambda *_: subprocess.Popen(['xfce4-terminal','--command','nano ~/.config/verbyos/dock.json'])),False,False,0); return p
+ def system(self):
+  p=self.page(); p.pack_start(self.button('Network settings',lambda *_: subprocess.Popen(['nm-connection-editor'])),False,False,0); p.pack_start(self.button('Audio controls',lambda *_: subprocess.Popen(['pavucontrol'])),False,False,0); p.pack_start(self.button('Display settings',lambda *_: subprocess.Popen(['xfce4-display-settings'])),False,False,0); p.pack_start(self.button('Bluetooth',lambda *_: subprocess.Popen(['blueman-manager'])),False,False,0); p.pack_start(self.button('Storage',lambda *_: subprocess.Popen(['baobab'])),False,False,0); return p
+ def gaming(self):
+  p=self.page(); p.pack_start(Gtk.Label(label='Gaming'),False,False,0); p.pack_start(self.button('Launch Steam',lambda *_: subprocess.Popen(['steam'])),False,False,0); p.pack_start(self.button('GPU / OpenGL info',lambda *_: subprocess.Popen(['sh','-c','glxinfo | less'])),False,False,0); p.pack_start(self.button('Vulkan info',lambda *_: subprocess.Popen(['sh','-c','vulkaninfo | less'])),False,False,0); return p
+ def about(self):
+  p=self.page(); p.pack_start(Gtk.Label(label='VerbyOS 1.0.0\nDebian 13 Trixie • amd64 • XFCE'),False,False,0); p.pack_start(self.button('Show system information',lambda *_: subprocess.Popen(['xfce4-terminal','-e','verby-info'])),False,False,0); return p
+Gtk.init([]); App().show_all(); Gtk.main()

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<rect width="1920" height="1080" fill="#172033"/>
+<circle cx="1650" cy="180" r="95" fill="#ffb6d9" opacity=".35"/>
+<path d="M0 830 Q350 650 700 830 T1400 830 T1920 790 V1080 H0Z" fill="#f3f0e8" opacity=".12"/>
+<g transform="translate(860 390)">
+<ellipse cx="100" cy="230" rx="185" ry="145" fill="#f3f0e8"/>
+<circle cx="100" cy="110" r="145" fill="#f3f0e8"/>
+<path d="M-25 5 L0 -105 L65 -30 Z M135 -30 L200 -105 L220 10 Z" fill="#f3f0e8"/>
+<circle cx="55" cy="105" r="11" fill="#172033"/><circle cx="145" cy="105" r="11" fill="#172033"/>
+<path d="M100 125 q-18 20 0 30 q18 -10 0 -30" fill="#ffb6d9"/>
+<path d="M25 150 Q100 195 175 150" stroke="#172033" stroke-width="7" fill="none" stroke-linecap="round"/>
+</g><text x="80" y="940" fill="#f3f0e8" font-family="sans-serif" font-size="44" opacity=".8">VERBYOS • CAT MOON</text>
+</svg>

@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+import os, random, shutil, subprocess, sys, time
+from pathlib import Path
+
+ROOT=Path('/usr/share/backgrounds/verbyos')
+CACHE=Path.home()/'.cache/verbyos/wallpapers'
+SAVED=Path.home()/'Pictures/VerbyOS Saved Wallpapers'
+STATE=Path.home()/'.config/verbyos/wallpaper.state'
+CACHE.mkdir(parents=True, exist_ok=True); SAVED.mkdir(parents=True, exist_ok=True); STATE.parent.mkdir(parents=True, exist_ok=True)
+
+def images():
+    return [p for p in ROOT.rglob('*') if p.suffix.lower() in {'.svg','.png','.jpg','.jpeg','.webp'}]
+
+def set_bg(path):
+    subprocess.run(['xfconf-query','-c','xfce4-desktop','-p','/backdrop/screen0/monitor0/image-path','-s',str(path)], check=False)
+    # XFCE may use a different monitor/property layout; set all matching image paths when available.
+    try:
+        props=subprocess.check_output(['xfconf-query','-c','xfce4-desktop','-l'], text=True)
+        for prop in props.splitlines():
+            if prop.endswith('/image-path'):
+                subprocess.run(['xfconf-query','-c','xfce4-desktop','-p',prop,'-s',str(path)], check=False)
+    except Exception: pass
+    STATE.write_text(str(path))
+
+def current():
+    return Path(STATE.read_text().strip()) if STATE.exists() else None
+
+def choose(exclude=None):
+    pool=images()
+    if not pool: raise SystemExit('No VerbyOS wallpapers installed.')
+    if exclude: pool=[p for p in pool if p != exclude] or images()
+    return random.choice(pool)
+
+def main():
+    cmd=sys.argv[1] if len(sys.argv)>1 else 'random'
+    cur=current()
+    pool=images()
+    if cmd in ('random','next','daily'):
+        p=choose(cur); set_bg(p); print(p)
+    elif cmd=='previous':
+        ordered=sorted(pool); p=ordered[max(0, ordered.index(cur)-1)] if cur in ordered else choose(); set_bg(p); print(p)
+    elif cmd=='save':
+        if not cur or not cur.exists(): cur=choose(); set_bg(cur)
+        target=SAVED/(cur.stem+'.'+cur.suffix.lstrip('.'))
+        if cur.suffix.lower()=='.svg': target=SAVED/(cur.stem+'.svg')
+        shutil.copy2(cur,target); print(target)
+    elif cmd=='enable':
+        subprocess.run(['systemctl','--user','enable','--now','verby-wallpaper.timer'], check=False)
+    elif cmd=='disable':
+        subprocess.run(['systemctl','--user','disable','--now','verby-wallpaper.timer'], check=False)
+    elif cmd=='status':
+        print(cur or 'No wallpaper selected')
+    else:
+        print('Usage: verby-wallpaper random|next|previous|daily|save|enable|disable|status', file=sys.stderr); return 2
+    return 0
+sys.exit(main())

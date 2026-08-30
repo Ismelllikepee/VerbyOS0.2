@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=VerbyOS Session
+Exec=/usr/local/bin/verby-session-init
+OnlyShowIn=XFCE;
+X-GNOME-Autostart-enabled=true
+NoDisplay=true

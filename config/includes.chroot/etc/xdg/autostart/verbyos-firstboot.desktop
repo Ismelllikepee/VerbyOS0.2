@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=VerbyOS First Boot
+Exec=/usr/local/bin/verby-firstboot
+OnlyShowIn=XFCE;
+NoDisplay=true

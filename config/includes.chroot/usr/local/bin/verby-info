@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+. /etc/os-release
+printf 'VerbyOS %s\n' "${VERSION:-1.0.0}"
+printf 'Kernel: '; uname -r
+printf 'CPU: '; lscpu 2>/dev/null | awk -F: '/Model name/{gsub(/^ +/ ,"",$2); print $2; exit}'
+printf 'RAM: '; free -h | awk '/Mem:/{print $2}'
+printf 'GPU: '; (lspci 2>/dev/null | awk -F': ' '/VGA|3D|Display/{print $2; exit}' || true)
+printf 'Storage: '; df -h / | awk 'NR==2{print $2 " total, " $4 " free"}'
+printf 'Desktop: '; printf '%s\n' "${XDG_CURRENT_DESKTOP:-XFCE}"

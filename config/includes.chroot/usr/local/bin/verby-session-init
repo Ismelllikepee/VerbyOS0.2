@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+mkdir -p "$HOME/Pictures/VerbyOS Saved Wallpapers" "$HOME/.config/verbyos"
+# Hide XFCE's conventional panel when possible; the Verby dock replaces it.
+xfconf-query -c xfce4-panel -p /panels/panel-1/autohide-behavior -s 2 2>/dev/null || true
+xfconf-query -c xfce4-panel -p /panels/panel-1/length -s 1 2>/dev/null || true
+systemctl --user daemon-reload 2>/dev/null || true
+systemctl --user enable --now verby-wallpaper.timer 2>/dev/null || true
+/usr/local/bin/verby-wallpaper random >/dev/null 2>&1 || true
+/usr/local/bin/verby-dock >/dev/null 2>&1 &

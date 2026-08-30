@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+case "${1:-}" in
+ discord)
+  xdg-open 'https://discord.com/download' >/dev/null 2>&1 || true
+  xdg-open 'https://vencord.dev/download/' >/dev/null 2>&1 || true
+  ;;
+ minecraft)
+  xdg-open 'https://www.minecraft.net/en-us/download' >/dev/null 2>&1 || true
+  ;;
+ *)
+  echo 'Usage: verby-proprietary-installer discord|minecraft' >&2; exit 2;;
+esac

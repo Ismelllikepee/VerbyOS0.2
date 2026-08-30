@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+if [ -x "$HOME/.local/share/Steam/steamapps/common/Geometry Dash/GeometryDash" ]; then exec "$HOME/.local/share/Steam/steamapps/common/Geometry Dash/GeometryDash" "$@"; fi
+if [ -x "$HOME/.steam/steam/steamapps/common/Geometry Dash/GeometryDash" ]; then exec "$HOME/.steam/steam/steamapps/common/Geometry Dash/GeometryDash" "$@"; fi
+echo 'Geometry Dash is not installed. Purchase/install it through Steam first; VerbyOS will not redistribute the game.'
+exit 1

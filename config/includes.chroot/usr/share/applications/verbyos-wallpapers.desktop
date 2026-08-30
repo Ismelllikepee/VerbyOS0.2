@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=VerbyOS Wallpapers
+Comment=Random and saved wallpapers
+Exec=verby-settings
+Icon=preferences-desktop-wallpaper
+Terminal=false
+Type=Application
+Categories=Settings;Utility;

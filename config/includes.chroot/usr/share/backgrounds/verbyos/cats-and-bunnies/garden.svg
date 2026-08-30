@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<rect width="1920" height="1080" fill="#b9d7c1"/>
+<circle cx="1650" cy="180" r="95" fill="#f2b7c7" opacity=".35"/>
+<path d="M0 830 Q350 650 700 830 T1400 830 T1920 790 V1080 H0Z" fill="#fff8e7" opacity=".12"/>
+<g transform="translate(860 390)">
+<ellipse cx="100" cy="230" rx="185" ry="145" fill="#fff8e7"/>
+<circle cx="100" cy="110" r="145" fill="#fff8e7"/>
+<ellipse cx="30" cy="-30" rx="32" ry="115" fill="#fff8e7" transform="rotate(-12 30 -30)"/><ellipse cx="170" cy="-30" rx="32" ry="115" fill="#fff8e7" transform="rotate(12 170 -30)"/>
+<circle cx="55" cy="105" r="11" fill="#b9d7c1"/><circle cx="145" cy="105" r="11" fill="#b9d7c1"/>
+<path d="M100 125 q-18 20 0 30 q18 -10 0 -30" fill="#f2b7c7"/>
+<path d="M65 155 Q100 175 135 155" stroke="#b9d7c1" stroke-width="7" fill="none" stroke-linecap="round"/>
+</g><text x="80" y="940" fill="#fff8e7" font-family="sans-serif" font-size="44" opacity=".8">VERBYOS • GARDEN FRIENDS</text>
+</svg>
